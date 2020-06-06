@@ -7,9 +7,9 @@ const { TextArea } = Input;
 function TaskDetails() {
   const router = useRouter();
 
-  const [taskDetailsTaskId, setTaskDetailsTaskId] = useState<any>({});
-  const [taskDetailsTaskMessage, setTaskDetailsTaskMessage] = useState<any>({});
-  const [taskDetailsUserId, setTaskDetailsUserId] = useState<any>({});
+  const [taskDetailsTaskId, setTaskDetailsTaskId] = useState<string>('');
+  const [taskDetailsTaskMessage, setTaskDetailsTaskMessage] = useState<string>('');
+  const [taskDetailsUserId, setTaskDetailsUserId] = useState<string>('');
 
   const taskId = router.query.taskId as string;
   const userId = router.query.userId as string;
