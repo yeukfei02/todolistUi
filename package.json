@@ -6,6 +6,7 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
+    "heroku-postbuild": "yarn run build",
     "lint": "eslint '*/**/*.{ts,tsx}' --quiet --fix"
   },
   "dependencies": {
