@@ -73,7 +73,7 @@ function MainPage() {
             name="username"
             rules={[{ required: true, message: 'Please enter your username' }]}
           >
-            <Input />
+            <Input placeholder="Enter username" allowClear />
           </Form.Item>
 
           <Form.Item>

@@ -129,7 +129,7 @@ function Task() {
               name="taskMessage"
               rules={[{ required: true, message: 'Please enter your task message' }]}
             >
-              <Input />
+              <Input placeholder="Enter task message" allowClear />
             </Form.Item>
 
             <Form.Item>
