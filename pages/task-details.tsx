@@ -96,7 +96,12 @@ function TaskDetails() {
       <Card title="Task details" bordered={false} style={{ width: '50em' }}>
         <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
           <Form.Item label="Task id" name="taskId" rules={[{ required: true, message: 'Please enter your task id' }]}>
-            <Input placeholder="Enter task id" allowClear value={taskDetailsTaskId} onChange={(e) => handleTaskIdChange(e)} />
+            <Input
+              placeholder="Enter task id"
+              allowClear
+              value={taskDetailsTaskId}
+              onChange={(e) => handleTaskIdChange(e)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -104,11 +109,21 @@ function TaskDetails() {
             name="taskMessage"
             rules={[{ required: true, message: 'Please enter your task message' }]}
           >
-            <Input placeholder="Enter task message" allowClear value={taskDetailsTaskMessage} onChange={(e) => handleTaskMessageChange(e)} />
+            <Input
+              placeholder="Enter task message"
+              allowClear
+              value={taskDetailsTaskMessage}
+              onChange={(e) => handleTaskMessageChange(e)}
+            />
           </Form.Item>
 
           <Form.Item label="User id" name="userId" rules={[{ required: true, message: 'Please enter your user id' }]}>
-            <Input placeholder="Enter user id" allowClear value={taskDetailsUserId} onChange={(e) => handleUserIdChange(e)} />
+            <Input
+              placeholder="Enter user id"
+              allowClear
+              value={taskDetailsUserId}
+              onChange={(e) => handleUserIdChange(e)}
+            />
           </Form.Item>
 
           <Form.Item>
