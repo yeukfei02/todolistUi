@@ -19,13 +19,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 async function getMessage(res: NextApiResponse, username: string) {
   try {
-    const result = await axios.get(`${ROOT_URL}/user/get-user-id`, 
-      {
-        params: {
-          username: username
-        }
-      }
-    );
+    const result = await axios.get(`${ROOT_URL}/user/get-user-id`, {
+      params: {
+        username: username,
+      },
+    });
 
     res.status(200).json({
       result: result.data,

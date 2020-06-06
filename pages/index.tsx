@@ -21,6 +21,7 @@ function MainPage() {
   const getMessage = async (username: string) => {
     const response = await fetch(`/api/user/getMessage/${username}`);
     const result = await response.json();
+    console.log('result = ', result);
 
     if (result) {
       router.push({
@@ -33,6 +34,7 @@ function MainPage() {
   const createUser = async (username: string) => {
     const response = await fetch(`/api/user/createUser/${username}`);
     const result = await response.json();
+    console.log('result = ', result);
 
     if (result) {
       router.push({
@@ -75,13 +77,13 @@ function MainPage() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }} onClick={handleGetMessage}>
+            <Button type="primary" htmlType="submit" block onClick={handleGetMessage}>
               Get message
             </Button>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }} onClick={handleCreateUser}>
+            <Button type="primary" ghost htmlType="submit" block onClick={handleCreateUser}>
               Create user
             </Button>
           </Form.Item>

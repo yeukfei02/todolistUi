@@ -1,32 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Card, Form, Input, Button, Row, Col } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
 function Task() {
   const router = useRouter();
 
-  const [taskList, setTaskList] = useState([]);
-  const [userTaskList, setUserTaskList] = useState([]);
-
+  const [userTaskList, setUserTaskList] = useState<any[]>([]);
   const [taskMessage, setTaskMessage] = useState('');
 
   const userId = router.query.userId as string;
 
   useEffect(() => {
-    getAllTask();
-  }, []);
-
-  useEffect(() => {
-    if (taskList) {
-      const userTaskList = taskList.filter((item: any, i: number) => {
-        return item.userId.toString() === userId;
-      });
-
-      if (userTaskList) {
-        setUserTaskList(userTaskList);
-      }
-    }
-  }, [taskList, userId]);
+    if (userId) getUserTaskList(userId);
+  }, [userId]);
 
   useEffect(() => {
     if (taskMessage) {
@@ -49,37 +36,33 @@ function Task() {
   const createTask = async (taskMessage: string, userId: string) => {
     const response = await fetch(`/api/task/createTask/1/${taskMessage}/${userId}`);
     const result = await response.json();
+    console.log('result = ', result);
 
     if (result) {
-      getAllTask();
+      getUserTaskList(userId);
     }
   };
 
-  const getAllTask = async () => {
-    const response = await fetch(`/api/task`);
-    const result = await response.json();
+  const getUserTaskList = async (userId: string) => {
+    if (userId) {
+      const response = await fetch(`/api/task/getTaskByUserId/1/${userId}`);
+      const result = await response.json();
+      console.log('result = ', result);
 
-    if (result && result.result.tasks) {
-      setTaskList(result.result.tasks);
+      if (result && result.result.tasks) {
+        setUserTaskList(result.result.tasks);
+      }
     }
-  };
-
-  const getTaskById = async (id: string) => {
-    const response = await fetch(`/api/task/getTaskById/${id}`);
-    const result = await response.json();
-    console.log('result = ', result);
-  };
-
-  const updateTaskById = async (id: string, taskMessage: string, userId: string) => {
-    const response = await fetch(`/api/task/updateTaskById/${id}/${taskMessage}/${userId}`);
-    const result = await response.json();
-    console.log('result = ', result);
   };
 
   const deleteTaskById = async (id: string) => {
     const response = await fetch(`/api/task/deleteTaskById/${id}`);
     const result = await response.json();
     console.log('result = ', result);
+
+    if (result) {
+      getUserTaskList(userId);
+    }
   };
 
   const renderUserTaskList = () => {
@@ -87,14 +70,27 @@ function Task() {
 
     if (userTaskList) {
       result = userTaskList.map((item: any, i: number) => {
+        const taskId = item.taskId;
         const titleText = `#${i + 1}`;
 
         return (
-          <Col key={i} span={24} style={{ marginTop: '2em' }}>
-            <Card title={titleText} extra={<a href="#">More</a>}>
-              <p>{item.taskMessage}</p>
-            </Card>
-          </Col>
+          <Card
+            key={i}
+            title={
+              <div style={{ cursor: 'pointer' }} onClick={() => handleTitleTextClick(taskId, userId)}>
+                {titleText}
+              </div>
+            }
+            style={{ marginTop: '2em' }}
+            extra={
+              <DeleteOutlined
+                style={{ fontSize: '1.3em', cursor: 'pointer' }}
+                onClick={() => handleDeleteTask(taskId)}
+              />
+            }
+          >
+            <p>{item.taskMessage}</p>
+          </Card>
         );
       });
     }
@@ -102,10 +98,31 @@ function Task() {
     return result;
   };
 
+  const handleTitleTextClick = (taskId: string, userId: string) => {
+    if (taskId) {
+      router.push({
+        pathname: '/task-details',
+        query: { taskId: taskId, userId: userId },
+      });
+    }
+  };
+
+  const handleDeleteTask = (taskId: string) => {
+    if (taskId) {
+      deleteTaskById(taskId);
+    }
+  };
+
+  const handleGoHome = () => {
+    router.push({
+      pathname: `/`,
+    });
+  };
+
   return (
     <div>
       <div className="card-view">
-        <Card title="Todo list" bordered={false} style={{ width: '50em' }}>
+        <Card title="Task list" bordered={false} style={{ width: '50em' }}>
           <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
             <Form.Item
               label="Task message"
@@ -116,16 +133,23 @@ function Task() {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+              <Button type="primary" htmlType="submit" block>
                 Create task message
               </Button>
             </Form.Item>
           </Form>
+
+          <Button htmlType="submit" block onClick={handleGoHome}>
+            Home
+          </Button>
         </Card>
       </div>
-      <div style={{ width: '50em', margin: '0 auto' }}>
-        <Row>{renderUserTaskList()}</Row>
-      </div>
+
+      <Row>
+        <Col span={12} offset={6}>
+          {renderUserTaskList()}
+        </Col>
+      </Row>
     </div>
   );
 }

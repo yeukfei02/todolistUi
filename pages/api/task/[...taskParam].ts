@@ -15,6 +15,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       };
       createTask(res, createTaskData);
       break;
+    case 'getTaskByUserId':
+      const userId = req.query.taskParam[2];
+      getTaskByUserId(res, userId);
+      break;
     case 'getTaskById':
       getTaskById(res, id);
       break;
@@ -34,6 +38,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 async function createTask(res: NextApiResponse, data: any) {
   try {
     const result = await axios.post(`${ROOT_URL}/task/create-task`, data);
+
+    res.status(200).json({
+      result: result.data,
+    });
+  } catch (e) {
+    res.status(400).json({
+      message: e.message,
+    });
+  }
+}
+
+async function getTaskByUserId(res: NextApiResponse, userId: string) {
+  try {
+    const result = await axios.get(`${ROOT_URL}/task`, {
+      params: {
+        userId: userId,
+      },
+    });
 
     res.status(200).json({
       result: result.data,
