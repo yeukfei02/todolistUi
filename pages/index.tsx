@@ -1,19 +1,45 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Card, Form, Input, Button } from 'antd';
 
 function MainPage() {
+  const router = useRouter();
+
   const [username, setUsername] = useState('');
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     if (username) {
-      createUser(username);
+      if (status === 'getMessage') {
+        getMessage(username);
+      } else if (status === 'createUser') {
+        createUser(username);
+      }
     }
   }, [username]);
 
-  const createUser = async (username: string) => {
-    const response = await fetch(`/api/user/${username}`);
+  const getMessage = async (username: string) => {
+    const response = await fetch(`/api/user/getMessage/${username}`);
     const result = await response.json();
-    console.log('result = ', result);
+
+    if (result) {
+      router.push({
+        pathname: '/task',
+        query: { userId: result.result.userId },
+      });
+    }
+  };
+
+  const createUser = async (username: string) => {
+    const response = await fetch(`/api/user/createUser/${username}`);
+    const result = await response.json();
+
+    if (result) {
+      router.push({
+        pathname: '/task',
+        query: { userId: result.result.userId },
+      });
+    }
   };
 
   const onFinish = (values: any) => {
@@ -28,27 +54,39 @@ function MainPage() {
     console.log('Failed = ', errorInfo);
   };
 
-  return (
-    <div>
-      <div className="site-card-border-less-wrapper">
-        <Card title="Todo list" bordered={false} style={{ width: '50em' }}>
-          <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[{ required: true, message: 'Please enter your username' }]}
-            >
-              <Input />
-            </Form.Item>
+  const handleGetMessage = () => {
+    setStatus('getMessage');
+  };
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </Card>
-      </div>
+  const handleCreateUser = () => {
+    setStatus('createUser');
+  };
+
+  return (
+    <div className="card-view">
+      <Card title="Todo list" bordered={false} style={{ width: '50em' }}>
+        <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: 'Please enter your username' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" style={{ width: '100%' }} onClick={handleGetMessage}>
+              Get message
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" style={{ width: '100%' }} onClick={handleCreateUser}>
+              Create user
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 }

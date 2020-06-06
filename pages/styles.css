@@ -3,8 +3,10 @@ body {
     height: 100%;
 }
 
-.site-card-border-less-wrapper {
+.card-view {
     display: flex;
     justify-content: center;
-    padding: 6em;
+    padding-top: 6em;
+    padding-left: 6em;
+    padding-right: 6em;
 }
