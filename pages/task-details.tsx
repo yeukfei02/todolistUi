@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Card, Form, Input, Button } from 'antd';
 
+const { TextArea } = Input;
+
 function TaskDetails() {
   const router = useRouter();
 
@@ -33,7 +35,7 @@ function TaskDetails() {
     const result = await response.json();
     console.log('result = ', result);
 
-    if (result) {
+    if (result && result.result && result.result.task) {
       setTaskDetailsTaskId(result.result.task.taskId);
       setTaskDetailsTaskMessage(result.result.task.taskMessage);
       setTaskDetailsUserId(result.result.task.userId);
@@ -109,7 +111,8 @@ function TaskDetails() {
             name="taskMessage"
             rules={[{ required: true, message: 'Please enter your task message' }]}
           >
-            <Input
+            <TextArea
+              rows={5}
               placeholder="Enter task message"
               allowClear
               value={taskDetailsTaskMessage}

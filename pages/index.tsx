@@ -23,7 +23,7 @@ function MainPage() {
     const result = await response.json();
     console.log('result = ', result);
 
-    if (result) {
+    if (result && result.result) {
       router.push({
         pathname: '/task',
         query: { userId: result.result.userId },
@@ -36,7 +36,7 @@ function MainPage() {
     const result = await response.json();
     console.log('result = ', result);
 
-    if (result) {
+    if (result && result.result) {
       router.push({
         pathname: '/task',
         query: { userId: result.result.userId },

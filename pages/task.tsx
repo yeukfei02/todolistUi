@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { Card, Form, Input, Button, Row, Col } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
+const { TextArea } = Input;
+
 function Task() {
   const router = useRouter();
 
@@ -84,7 +86,7 @@ function Task() {
             style={{ marginTop: '2em' }}
             extra={
               <DeleteOutlined
-                style={{ fontSize: '1.3em', cursor: 'pointer' }}
+                style={{ color: 'red', fontSize: '1.3em', cursor: 'pointer' }}
                 onClick={() => handleDeleteTask(taskId)}
               />
             }
@@ -129,7 +131,7 @@ function Task() {
               name="taskMessage"
               rules={[{ required: true, message: 'Please enter your task message' }]}
             >
-              <Input placeholder="Enter task message" allowClear />
+              <TextArea rows={5} placeholder="Enter task message" allowClear />
             </Form.Item>
 
             <Form.Item>
