@@ -16,6 +16,9 @@ $ yarn run dev
 // production
 $ yarn run start
 
+// run type check
+$ yarn run type-check
+
 // use eslint and prettier to format code
 $ yarn run lint
 ```

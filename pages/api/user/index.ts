@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiResponse } from 'next';
 import axios from 'axios';
 
 const ROOT_URL = `https://todo-list-api-v1.herokuapp.com/api`;
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (res: NextApiResponse) => {
   try {
     const result = await axios.get(`${ROOT_URL}/user`);
 
