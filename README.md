@@ -14,7 +14,7 @@ $ yarn
 $ yarn run dev
 
 // production
-$ yarn run start
+$ yarn run production
 
 // run type check
 $ yarn run type-check
