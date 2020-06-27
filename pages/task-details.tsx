@@ -1,5 +1,5 @@
 import React from 'react';
-import TaskDetailsComponent from '../components/taskDetailsComponent';
+import TaskDetailsComponent from '../components/TaskDetailsComponent';
 
 function TaskDetails() {
   return <TaskDetailsComponent />;
