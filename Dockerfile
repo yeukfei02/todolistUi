@@ -1,4 +1,4 @@
-FROM node:12.14.0
+FROM node:12.18.3
 
 RUN mkdir -p /usr/src/app
 
@@ -10,4 +10,4 @@ RUN yarn
 
 RUN yarn run build
 
-CMD [ "yarn", "run", "production" ]
+CMD [ "yarn", "run", "start" ]
