@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Card, Form, Input, Button } from 'antd';
 
-function MainPageComponent() {
+function MainPageComponent(): JSX.Element {
   const router = useRouter();
 
   const [username, setUsername] = useState('');

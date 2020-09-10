@@ -5,7 +5,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
-function TaskComponent() {
+function TaskComponent(): JSX.Element {
   const router = useRouter();
 
   const [userTaskList, setUserTaskList] = useState<any[]>([]);
