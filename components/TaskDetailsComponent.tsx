@@ -4,7 +4,7 @@ import { Card, Form, Input, Button } from 'antd';
 
 const { TextArea } = Input;
 
-function TaskDetailsComponent() {
+function TaskDetailsComponent(): JSX.Element {
   const router = useRouter();
 
   const [taskDetailsTaskId, setTaskDetailsTaskId] = useState<string>('');

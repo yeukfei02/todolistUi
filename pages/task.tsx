@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskComponent from '../components/TaskComponent';
 
-function Task() {
+function Task(): JSX.Element {
   return <TaskComponent />;
 }
 
