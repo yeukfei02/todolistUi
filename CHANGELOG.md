@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.10](https://github.com/yeukfei02/todolistUi/compare/v0.2.9...v0.2.10) (2021-07-25)
+
+
+### Bug Fixes
+
+* 🐛 remove not used file ([1505a1d](https://github.com/yeukfei02/todolistUi/commit/1505a1d2abcf1da1768a8266f6d15e8f6a1c5cca))
+
 ### [0.2.9](https://github.com/yeukfei02/todolistUi/compare/v0.2.8...v0.2.9) (2021-03-29)
 
 
