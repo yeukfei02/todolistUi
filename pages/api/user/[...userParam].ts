@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const ROOT_URL = `https://todo-list-api-v1.herokuapp.com/api`;
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse): Promise<any> => {
   const type = req.query.userParam[0];
   const username = req.query.userParam[1];
 

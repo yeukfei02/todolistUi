@@ -8,8 +8,9 @@ function MainPage(): JSX.Element {
       <Head>
         <title>todolistUi</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <MainPageComponent />
       </Head>
+
+      <MainPageComponent />
     </div>
   );
 }
